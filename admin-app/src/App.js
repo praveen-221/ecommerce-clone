@@ -10,17 +10,22 @@ import { getInitialData, isLoggedIn } from './actions';
 import Products from './Pages/Products/products';
 import Orders from './Pages/Orders/orders';
 import Categories from './Pages/Categories/category';
+import StorePage from './Pages/StorePage/page';
 
 function App() {
   const dispatch = useDispatch();
 	const auth = useSelector(state => state.auth);
 
+  // ComponentDidMount - called only once
+  // ComponentDidRender - called again & again each time for updating
 	useEffect(()=> {
-		if(!auth.authenticated){
+		if(!auth.authenticated) {
 			dispatch(isLoggedIn());
-      dispatch(getInitialData());
 		}
-	}, []);
+    if(auth.authenticated) {
+      dispatch(getInitialData());
+    }
+	}, [auth.authenticated]);
 
   return (
     <div className="App">
@@ -34,6 +39,7 @@ function App() {
             <Route path="/products" element={<Products/>}>Products</Route>
             <Route path="/orders" element={<Orders/>}>Orders</Route>
             <Route path="/categories" element={<Categories/>}>categories</Route>
+            <Route path="/page" element={<StorePage/>}>Home</Route>
           </Route>
           <Route path="/login" element={<Login/>}>Login</Route>
           <Route path="/signup" element={<Signup/>}>SignUp</Route>

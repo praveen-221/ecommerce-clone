@@ -25,7 +25,7 @@ const Signup = async (req, res) => {
             });
             newuser.save((err, data)=>{
                 if(err){
-                    return res.status(404).json({message: "User not created", Error: err});
+                    return res.status(400).json({message: "User not created", Error: err});
                 } 
                 else if(data){
                     return res.status(200).json({message: "User created Successfully", user: data});
@@ -33,7 +33,7 @@ const Signup = async (req, res) => {
             });
         }
     } catch(err){
-        return res.status(404).json({message: "[-] Error creating user"});
+        return res.status(400).json({message: "[-] Error creating user"});
     }
 }
 
@@ -59,20 +59,20 @@ const Login = async (req, res) => {
         }
     }
     catch(err){
-        return res.status(404).json({message: "[-] Error finding User!"})
+        return res.status(400).json({message: "[-] Error finding User!"})
     }
 }
 
 // const AuthLogin = (req, res, next) => {
 //     try{
-//         // header will have 'Bearer JWTtoken' hence spilt using space( ) & use the index 1(token)
+//         // header will have 'Bearer JWTtoken' hence spilt using space( ) & use the index 1(token)s
 //         const token = req.headers.authorization.spilt(" ")[1];    // Authorization fiels is present i headers which is used here and then req is made
 //         const userid = jwt.verify(token, process.env.JWT_PRIVATEKEY); // verifies the token using key
 //         req.userId = userid;
 //         next(); // executes the next function in post request
 //     }
 //     catch(err){
-//         return res.status(404).json({message: "User not found!", Error: err});
+//         return res.status(400).json({message: "User not found!", Error: err});
 //     }
 // }
 
@@ -98,7 +98,7 @@ const AdminSignup = async (req, res) => {
             });
             newuser.save((err, data)=>{
                 if(err){
-                    return res.status(404).json({message: "Admin not created", error: err, serverity: "error"});
+                    return res.status(400).json({message: "Admin not created", error: err, serverity: "error"});
                 } 
                 else if(data){
                     return res.status(200).json({message: "Admin created successfully", user: data, severity: "success"});
@@ -106,7 +106,7 @@ const AdminSignup = async (req, res) => {
             });
         }
     } catch(err){
-        return res.status(404).json({message: "[-] Error creating Admin", serverity: "error"});
+        return res.status(400).json({message: "[-] Error creating Admin", serverity: "error"});
     }
 }
 
@@ -133,7 +133,7 @@ const AdminLogin = async (req, res) => {
         }
     }
     catch(err){
-        return res.status(404).json({message: "[-] Error finding Admin!"})
+        return res.status(400).json({message: "[-] Error finding Admin!"})
     }
 }
 

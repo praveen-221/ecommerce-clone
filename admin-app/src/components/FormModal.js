@@ -7,13 +7,27 @@ function FormModal(props) {
 			<Modal.Header closeButton>
 				<Modal.Title>{props.modalTitle}</Modal.Title>
 			</Modal.Header>
-			<Modal.Body>
-				{props.children}
-			</Modal.Body>
+			<Modal.Body>{props.children}</Modal.Body>
 			<Modal.Footer>
-				<Button variant="primary" onClick={props.handleClose}>
-					Submit
-				</Button>
+				{props.buttons ? (
+					props.buttons.map((btn, index) => {
+						return (
+							<Button key={index} variant={btn.color} onClick={btn.onClick}>
+								{btn.label}
+							</Button>
+						);
+					})
+				) : (
+					<Button
+						variant="dark"
+						{...props}
+						style = {{ backgroundColor: "#333" }}
+						className="btn-sm"
+						onClick={props.onSubmit}
+					>
+						{props.modalButton}
+					</Button>
+				)}
 			</Modal.Footer>
 		</Modal>
 	);

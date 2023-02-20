@@ -1,4 +1,19 @@
 const jwt = require("jsonwebtoken");
+const multer = require("multer");
+const shortid = require("shortid");
+const path = require("path");
+
+// alternative package is 'formidable' 
+// File upload is a part of configuration for routes not in controllers
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, path.join(path.dirname(__dirname), "uploads"));
+    },
+    filename: function (req, file, cb) {
+      cb(null, shortid.generate() + '-' + file.originalname);
+    }
+});
+const upload = multer({storage: storage});
 
 const AuthLogin = (req, res, next) => {
     if(req.headers.authorization){
@@ -9,10 +24,10 @@ const AuthLogin = (req, res, next) => {
             req.user = user;
         }
         catch(err){
-            return res.status(404).json({message: "User not found!", Error: err});
+            return res.status(400).json({message: "User not found!", Error: err});
         }
     } else {
-        return res.status(500).json({ message: "Authorization required :[" });
+        return res.status(400).json({ message: "Authorization required :[" });
     }
     // if this is included in if block it will throw err of "headers can't set after sending to client" since next send to client
     next(); // executes the next function in post request
@@ -32,4 +47,4 @@ const userMiddldeware = (req, res, next) => {
     next();
 }
 
-module.exports = { AuthLogin, adminMiddldeware, userMiddldeware };
+module.exports = { AuthLogin, adminMiddldeware, userMiddldeware, upload };

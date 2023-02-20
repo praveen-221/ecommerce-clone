@@ -5,7 +5,7 @@ const addItemToCart = (req, res) => {
         Cart.findOne({ user: req.user._id })
         .exec((err, userCart) => {
             if(err){
-                return res.status(404).json({ErrorMsg: err});
+                return res.status(400).json({ErrorMsg: err});
             }
             if(userCart){
                 //cart already exists and quantity needs to be updated
@@ -53,7 +53,7 @@ const addItemToCart = (req, res) => {
                     * })
                     * .exec((err, result) => {
                     *     if(err){
-                    *         return res.status(404).json({ErrorMsg: err});
+                    *         return res.status(400).json({ErrorMsg: err});
                     *     }
                     *     if(result){
                     *         return res.status(201).json({cart: result});
@@ -73,7 +73,7 @@ const addItemToCart = (req, res) => {
                 Cart.findOneAndUpdate(condition, update, filters)
                 .exec((err, result) => {
                     if(err){
-                        return res.status(404).json({ErrorMsg: err});
+                        return res.status(400).json({ErrorMsg: err});
                     }
                     if(result){
                         return res.status(201).json({cart: result});
@@ -98,7 +98,7 @@ const addItemToCart = (req, res) => {
         });
     }
     catch(err){
-        return res.status(404).json(err);
+        return res.status(400).json(err);
     }
 };
 

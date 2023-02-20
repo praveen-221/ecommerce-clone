@@ -38,13 +38,13 @@ const getProductsBySlug = (req, res) => {
     Category.findOne({ slug: slug })
     .exec((error, category) => {
         if(error){
-            return res.status(404).json({ error });
+            return res.status(400).json({ error });
         }
         if(category){
             Product.find({ category: category._id })
             .exec((error, products) => {
                 if(error){
-                    return res.status(404).json({ error });
+                    return res.status(400).json({ error });
                 }
                 res.status(200).json({
                     products,

@@ -11,6 +11,7 @@ const adminRoutes = require("./routes/adminAppRoutes/admin")
 const categoryRoutes = require("./routes/category/adminCategory");
 const productRoutes = require("./routes/product");
 const cartRoutes = require("./routes/cart");
+const pageRoutes = require("./routes/adminAppRoutes/page");
 
 const app = express();
 app.use(express.json());
@@ -20,7 +21,7 @@ app.use("/public", express.static(path.join(__dirname, "uploads")));    // Make 
 
 // Routes
 app.use("/api", userRoutes);
-app.use("/api/admin", adminRoutes);
+app.use("/api/admin", adminRoutes, pageRoutes);
 app.use("/api/category", categoryRoutes);
 app.use("/api/product", productRoutes);
 app.use("/api", cartRoutes);

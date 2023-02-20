@@ -1,5 +1,5 @@
 const express = require('express');
-const {createCategory, getCategories} = require("../../controllers/categoryControllers");
+const { createCategory, getCategories, updateCategories, deleteCategories } = require("../../controllers/categoryControllers");
 const { AuthLogin, adminMiddldeware } = require('../../middleware');
 const router = express.Router();
 const multer = require("multer");
@@ -18,5 +18,7 @@ const upload = multer({storage: storage});
 
 router.post("/create", AuthLogin, adminMiddldeware, upload.single('categoryImage'), createCategory);
 router.get("/getCategories", getCategories);
+router.post("/update", AuthLogin, adminMiddldeware, upload.single('categoryImage'), updateCategories);
+router.post("/delete", AuthLogin, adminMiddldeware, deleteCategories);
 
 module.exports = router;

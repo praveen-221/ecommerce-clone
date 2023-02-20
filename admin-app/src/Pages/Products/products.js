@@ -105,8 +105,10 @@ function Products(props) {
 		return (
 			<FormModal
 				show={show}
-				handleClose={handleClose}
+				handleClose={() => setShow(false)}
 				modalTitle={"Add New Product"}
+				modalButton={"Submit"}
+				onSubmit={handleClose}
 			>
 				<FormInput
 					label="Product Name"
@@ -175,6 +177,7 @@ function Products(props) {
 				show={showProductModal}
 				handleClose={handleShowProductModal}
 				modalTitle={"Product Details"}
+				modalButton={"Add to Cart"}
 				size="lg"
 			>
 				<Row>
