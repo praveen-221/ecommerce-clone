@@ -17,7 +17,7 @@ function SubHeader() {
         clientCategories.push(
             <li key={i.name}>
               {
-                i.parentId ? <a href={i.slug}>{i.name}</a> : <span>{i.name}</span>
+                i.parentId ? <a href={`/${i.slug}?cid=${i._id}&type=${i.type}`}>{i.name}</a> : <span>{i.name}</span>
               }
               {i.children.length > 0 ? (<ul>{renderCategories(i.children)}</ul>) : null}
             </li>

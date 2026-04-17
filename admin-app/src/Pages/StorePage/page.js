@@ -26,7 +26,6 @@ function StorePage() {
     }, [category]);
 
     useEffect(() => {
-        console.log(page);
         if(!page.loading) {
             setCreateModal(false);
             setTitle("");
@@ -47,7 +46,8 @@ function StorePage() {
     }
 
     const onCategoryChange = (e) => {
-        const category = categories.find(c => e.target.value === c._id);
+        const category = categories.find(c => c._id === e.target.value);
+        console.log(category);
         setCategoryId(e.target.value);
         setType(category.type);
     }
@@ -99,7 +99,7 @@ function StorePage() {
                                         <option value={""}>select one</option>
                                         {categories.map((option) => {
                                             return (
-                                                <option key={option.value} value={option.value}>
+                                                <option key={option._id} value={option._id}>
                                                     {option.name}
                                                 </option>
                                             );
@@ -188,15 +188,8 @@ function StorePage() {
     return (
         <>
             <Layout sidebar>
-                {
-                    page.loading ? 
-                    <p>Create Page</p>
-                    :
-                    <>
-                        {showCreateModal()}
-                        <button onClick={() => setCreateModal(true)}>Create page</button>
-                    </>
-                }
+                    {showCreateModal()}
+                    <button onClick={() => setCreateModal(true)}>Create page</button>
             </Layout>
         </>
     );
